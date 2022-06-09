@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="html/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/1d9dcf12aa.js" crossorigin="anonymous"></script>
+    <style>
+        .login i {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"
+        style="display: flex; justify-content: center; margin-top: 300px; flex-direction: column; width: 252px;">
+        <!-- <form action="login" method="post"> -->
+            <label for="account">帳號:<input type="text" id="account" name="account"
+                    style="margin-bottom:5px ;"></label><br>
+            <label for="password">密碼:<input type="password" id="password" name="password"
+                    style="margin-bottom: 5px;"></label>
+        <!-- </form> -->
+        <div style="display: flex; justify-content: space-between;  align-items: center;" class="login">
+            <!-- <button id="but">登入</button> -->
+            <i class="fa-solid fa-arrow-right-to-bracket fa-2x" id="but"></i>
+            <a href=""><i class="fa-solid fa-user-pen fa-2x" id="register"></i></a>
+
+        </div>
+
+    </div>
+
+    <script src="html/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#but').click(function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("post", 'login', true);
+            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+            xhr.send(`account=${$('#account').val()}&password=${$('#password').val()}`);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) { //處理完成
+                    if (xhr.status == 200 && xhr.responseText == 1) { //登入成功
+                        swal({
+                            title: "登入成功!",
+                            icon: "success",
+                        }).then((willDelete) => {
+                            if (willDelete) {
+                                window.location.replace("index");
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "帳號或密碼錯誤!",
+                            icon: "error",
+                        })
+                    }
+                }
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
